@@ -1,0 +1,18 @@
+server:
+  port: 8899
+spring:
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+    listener:
+      simple:
+        # auto 自动检测异常或者超时事件，如果发生则返回noack，消息自动回到队尾，但是这种方式可能出现消息体本身有问题，返回队尾其他队列也不能消费，造成队列阻塞。
+        # manual 手动回调，在程序中我们可以对消息异常记性捕获，如果出现消息体格式错误问题，手动回复ack，接着再次调用发送接口把消息推到队尾。ps:后面还需要错误消息堆积问题~~~
+        # NONE 可以称之为自动回调，即使无响应或者发生异常均会通知队列消费成功，会丢失数据。
+        acknowledge-mode: auto
+    publisher-returns: true
+    publisher-confirms: true
+    template:
+      mandatory: true

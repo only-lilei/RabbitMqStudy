@@ -22,6 +22,7 @@ public class RabbitServiceImpl implements RabbitService {
     @PostConstruct
     public void initExchange() {
         admin.declareExchange(RabbitConstant.TEST_EXCHANGE);
+        admin.declareExchange(RabbitConstant.FANOUT_EXCHANGE);
     }
 
     @Override
@@ -32,5 +33,11 @@ public class RabbitServiceImpl implements RabbitService {
     @Override
     public void send(Object message, String routingKey) {
         rabbitMessagingTemplate.convertAndSend(RabbitConstant.TEST_EXCHANGE.getName(), routingKey, message);
+    }
+
+
+    @Override
+    public void sendFanoutExchangeMessage(Object message) {
+        rabbitMessagingTemplate.convertAndSend(RabbitConstant.FANOUT_EXCHANGE.getName(), "",message);
     }
 }

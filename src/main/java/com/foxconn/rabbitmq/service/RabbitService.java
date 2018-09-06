@@ -17,4 +17,6 @@ public interface RabbitService {
      */
     void send(Object message, String routingKey);
 
+    void sendFanoutExchangeMessage(Object message);
+
 }

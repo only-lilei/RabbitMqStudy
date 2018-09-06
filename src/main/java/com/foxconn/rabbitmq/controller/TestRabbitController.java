@@ -21,4 +21,10 @@ public class TestRabbitController {
         rabbitService.send("hello world",RabbitConstant.ROUTING_KEY_TEST);
         return "aaaa";
     }
+
+    @GetMapping("/sendFanoutExchangeMessage")
+    public String sendFanoutExchangeMessage(){
+        rabbitService.sendFanoutExchangeMessage("hello world");
+        return "aaaa";
+    }
 }

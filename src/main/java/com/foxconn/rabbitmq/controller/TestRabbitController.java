@@ -1,5 +1,7 @@
 package com.foxconn.rabbitmq.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.foxconn.rabbitmq.bean.Demo;
 import com.foxconn.rabbitmq.constant.RabbitConstant;
 import com.foxconn.rabbitmq.service.RabbitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,10 @@ public class TestRabbitController {
     private RabbitService rabbitService;
     @GetMapping
     public String sendMessage(){
-        rabbitService.send("hello world",RabbitConstant.ROUTING_KEY_TEST);
+        Demo demo = new Demo();
+        demo.setAge(12);
+        demo.setName("张数");
+        rabbitService.send(demo,RabbitConstant.ROUTING_KEY_TEST);
         return "aaaa";
     }
 
